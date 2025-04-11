@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= employee ? 'Edit Employee' : 'Add New Employee' %> - Employee Management</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #e0eafc, #cfdef3);
+            margin: 0;
+            padding: 20px;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+            animation: fadeIn 0.5s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+        }
+        .error {
+            color: #e74c3c;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .form-group {
+            margin-bottom: 1rem;
+            width: 100%;
+            text-align: left;
+        }
+        label {
+            display: block;
+            margin-bottom: 0.25rem;
+            font-weight: bold;
+            color: #34495e;
+        }
+        input[type="text"], input[type="email"], input[type="tel"] {
+            padding: 0.75rem;
+            width: 100%;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        input[type="text"]:focus, input[type="email"]:focus, input[type="tel"]:focus {
+            border-color: #3498db;
+            outline: none;
+        }
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1.5rem;
+        }
+        button {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button[type="submit"] {
+            background-color: #2ecc71;
+            color: white;
+        }
+        button[type="submit"]:hover {
+            background-color: #27ae60;
+        }
+        button[type="button"] {
+            background-color: #95a5a6;
+            color: white;
+        }
+        button[type="button"]:hover {
+            background-color: #7f8c8d;
+        }
+        .errors {
+            color: #e74c3c;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1><%= employee ? 'Edit Employee' : 'Add New Employee' %></h1>
+        <% if (errors) { %>
+            <% errors.forEach(error => { %>
+                <p class="errors"><%= error.msg %></p>
+            <% }) %>
+        <% } %>
+        <form method="POST" action="<%= employee ? `/employees/update/${employee._id}` : '/employees' %>">
+            <div class="form-group">
+                <label for="firstName">First Name:</label>
+                <input type="text" name="firstName" id="firstName" value="<%= employee ? employee.firstName : '' %>" required>
+            </div>
+            <div class="form-group">
+                <label for="lastName">Last Name:</label>
+                <input type="text" name="lastName" id="lastName" value="<%= employee ? employee.lastName : '' %>" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" name="email" id="email" value="<%= employee ? employee.email : '' %>" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone:</label>
+                <input type="tel" name="phone" id="phone" value="<%= employee ? employee.phone : '' %>" required>
+            </div>
+            <div class="form-group">
+                <label for="position">Position:</label>
+                <input type="text" name="position" id="position" value="<%= employee ? employee.position : '' %>" required>
+            </div>
+            <div class="buttons">
+                <button type="submit">Save</button>
+                <button type="button" onclick="window.location.href='/employees'">Cancel</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

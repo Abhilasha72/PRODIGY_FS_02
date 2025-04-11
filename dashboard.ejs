@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Management - Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #e0eafc, #cfdef3);
+            margin: 0;
+            padding: 20px;
+            color: #2c3e50;
+        }
+        .container {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 1200px;
+            margin: 0 auto;
+            animation: fadeIn 0.5s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        h1 {
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+        }
+        .add-employee {
+            margin-bottom: 1.5rem;
+        }
+        .add-employee a {
+            background-color: #2ecc71;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .add-employee a:hover {
+            background-color: #27ae60;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+        th, td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #3498db;
+            color: white;
+        }
+        td a {
+            color: #e74c3c;
+            margin-right: 1rem;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        td a:hover {
+            color: #c0392b;
+        }
+        .action-buttons a:last-child {
+            color: #3498db;
+        }
+        .action-buttons a:last-child:hover {
+            color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Employee Records</h1>
+        <div class="add-employee">
+            <a href="/employees/new">Add New Employee</a>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Position</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% employees.forEach(employee => { %>
+                    <tr>
+                        <td><%= employee.firstName %> <%= employee.lastName %></td>
+                        <td><%= employee.email %></td>
+                        <td><%= employee.phone %></td>
+                        <td><%= employee.position %></td>
+                        <td class="action-buttons">
+                            <a href="/employees/edit/<%= employee._id %>">Edit</a>
+                            <a href="/employees/delete/<%= employee._id %>">Delete</a>
+                        </td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="/styles.css">
+    <title><%= employee ? 'Edit' : 'New' %> Employee</title>
+</head>
+<body>
+    <div class="container">
+        <h1><%= employee ? 'Edit' : 'Add' %> Employee</h1>
+        <% if (errors) { %>
+            <% errors.forEach(error => { %>
+                <p class="error"><%= error.msg %></p>
+            <% }) %>
+        <% } %>
+        <form method="POST" action="<%= employee ? '/employees/update/' + employee._id : '/employees' %>">
+            <input type="text" name="firstName" placeholder="First Name" 
+                   value="<%= employee ? employee.firstName : '' %>" required>
+            <input type="text" name="lastName" placeholder="Last Name" 
+                   value="<%= employee ? employee.lastName : '' %>" required>
+            <input type="email" name="email" placeholder="Email" 
+                   value="<%= employee ? employee.email : '' %>" required>
+            <input type="tel" name="phone" placeholder="Phone" 
+                   value="<%= employee ? employee.phone : '' %>" required>
+            <input type="text" name="position" placeholder="Position" 
+                   value="<%= employee ? employee.position : '' %>" required>
+            <button type="submit">Save</button>
+            <a href="/employees" class="btn">Cancel</a>
+        </form>
+    </div>
+</body>
+</html>
